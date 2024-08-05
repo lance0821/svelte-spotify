@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.postcss';
+	import 'modern-normalize/modern-normalize.css';
 
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';

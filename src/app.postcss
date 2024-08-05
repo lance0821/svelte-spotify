@@ -1,3 +1,9 @@
+@import "@fontsource/metropolis";
+@import "@fontsource/metropolis/300.css";
+@import "@fontsource/metropolis/400.css";
+@import "@fontsource/metropolis/500.css";
+@import "@fontsource/metropolis/600.css";
+@import "@fontsource/metropolis/700.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,4 +38,46 @@
 	font-family: 'Playfair Display';
 	src: url('/fonts/PlayfairDisplay-Italic.ttf');
 	font-display: swap;
+}
+
+body {
+  @apply bg-bg text-text font-metropolis;
+}
+
+::selection {
+  @apply bg-accent text-text;
+}
+/* Heading Styles */
+h1, h2, h3, h4, h5, h6 {
+    @apply font-bold leading-tight mt-2 mb-2
+}
+h1 {
+    @apply text-4xl
+}
+h2 {
+    @apply text-3xl
+}
+h3 {
+    @apply text-2xl
+}
+h4 {
+    @apply text-xl
+}
+h5 {
+    @apply text-lg
+}
+h6 {
+    @apply text-base
+}
+/* Paragraph Styles */
+p {
+    @apply text-base leading-relaxed mt-4 mb-4
+}
+/* Link Styles */
+a {
+    @apply text-accent
+}
+/* Focus Visible Styles */
+select:focus-visible, input:focus-visible, button:focus-visible, a:focus-visible {
+    @apply outline-none ring-2 ring-accent outline-offset-2
 }
