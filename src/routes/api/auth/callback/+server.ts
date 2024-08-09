@@ -1,5 +1,6 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import { redirect, type RequestHandler } from '@sveltejs/kit';
 import { SPOTIFY_APP_CLIENT_ID, SPOTIFY_APP_CLIENT_SECRET, BASE_URL } from '$env/static/private';
+import { error } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 	const code = url.searchParams.get('code');
@@ -9,7 +10,7 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 	const storedChallengeVerifier = cookies.get('spotify_auth_challenge_verifier');
 
 	if (!state || state !== storedState) {
-		return new Response('State Mismatch', { status: 400 });
+		throw error(400, 'State Mismatch');
 	}
 
 	const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -31,12 +32,16 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 
 	const responseJSON = await response.json();
 
+	if (responseJSON.error) {
+		throw error(400, responseJSON.error_description);
+	}
 	console.log(responseJSON);
 
-	return new Response(JSON.stringify(responseJSON), {
-		status: 200,
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
+	cookies.delete('spotify_auth_state', {path: '/'});
+	cookies.delete('spotify_auth_challenge_verifier', {path: '/'});
+	cookies.set('refresh_token', responseJSON.refresh_token, { path: '/' });
+	cookies.set('access_token', responseJSON.access_token, { path: '/' });
+
+	throw redirect(303, '/');
+
 };
