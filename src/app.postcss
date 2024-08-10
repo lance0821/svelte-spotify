@@ -11,6 +11,8 @@
 
 body {
   @apply bg-bg text-text font-metropolis;
+  background-image: linear-gradient(230deg, #000000, #191414);
+    min-height: 100vh;
 }
 
 ::selection {
@@ -95,3 +97,13 @@ select:focus-visible, input:focus-visible, button:focus-visible, a:focus-visible
     background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 }
 
+/* Main Content Styles */
+#main #content main#main-content {
+    @apply px-[15px] py-[30px] pb-[60px];
+}
+
+@media (min-width: 768px) {
+    #main #content main#main-content {
+        @apply px-[30px];
+    }
+}
