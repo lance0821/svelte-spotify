@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Home, Search, ListMusic, type Icon } from 'lucide-svelte';
+	import { Home, Search, ListMusic, Menu, Icon } from 'lucide-svelte';
+	import {IconButton} from '$components'
 	import { page } from '$app/stores';
 	import type { ComponentType } from 'svelte';
 	import logo from '$assets/Spotify_Logo_RGB_White.png';
@@ -75,6 +76,7 @@
 		{/if}
 	<nav aria-label="Main">
 		<!-- Mobile Menu Button (only visible on small screens) -->
+		<IconButton icon={Menu}/>
 		<button
 			bind:this={openButton}
 			class="p-2 bg-gray-800 text-white rounded-md lg:hidden"
